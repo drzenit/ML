@@ -3,7 +3,7 @@ import random
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve
 import pandas as pd
 import numpy as np
 
@@ -19,13 +19,13 @@ def firstTask(dataPath: str, dataType: str):
 
         # Разделение на признаки и метки
         feature = dataset.iloc[:, :-1]
-        lable = dataset.iloc[:, 9]
+        label = dataset.iloc[:, 9]
     elif (dataType == "csv"):
         dataset = pd.read_csv(dataPath)
 
         # Разделение на признаки и метки
         feature = dataset.iloc[:, :-1]
-        lable = dataset['type']
+        label = dataset['type']
 
     Y = list()
     X = list()
@@ -37,11 +37,11 @@ def firstTask(dataPath: str, dataType: str):
         X.append(trainSize)
 
         # Деление данных на обучающие и тестовые
-        feature_train, feature_test, lable_train, lable_test = train_test_split(feature, lable, train_size=trainSize, test_size=testSize)
+        feature_train, feature_test, label_train, label_test = train_test_split(feature, label, train_size=trainSize, test_size=testSize)
 
         # Создание и обучение экземпляра классификатора
         bayesCl = GaussianNB()
-        bayesCl.fit(feature_train, lable_train)
+        bayesCl.fit(feature_train, label_train)
 
         # Тестирование классификатора на тестовой выборке
         bayesResult = bayesCl.predict(feature_test)
@@ -50,11 +50,11 @@ def firstTask(dataPath: str, dataType: str):
         bayesResultTr = bayesCl.predict(feature_train)
 
         # Оценка точности классификатора тестовой выборки
-        bayesAccuracy = accuracy_score(bayesResult, lable_test)
+        bayesAccuracy = accuracy_score(bayesResult, label_test)
         Y.append(bayesAccuracy)
 
         # Оценка точности классификатора обучающей выборки
-        bayesAccuracyTr = accuracy_score(bayesResultTr, lable_train)
+        bayesAccuracyTr = accuracy_score(bayesResultTr, label_train)
         Ytr.append(bayesAccuracyTr)
 
     plt.plot(X, Y)
@@ -97,8 +97,31 @@ def secondTask():
 
     pointDF = pointDF1.append(pointDF2)
 
+    feature = pointDF.iloc[:, :-1]
+    label = pointDF.iloc[:, 2]
 
-    print(pointDF)
+    # Деление данных на обучающие и тестовые
+    trainSize = 0.6
+    testSize = 1 - trainSize
+    feature_train, feature_test, label_train, label_test = train_test_split(feature, label, train_size=trainSize, test_size=testSize)
+
+    # Создание и обучение экземпляра классификатора
+    bayesCl = GaussianNB()
+    bayesCl.fit(feature_train, label_train)
+
+    # Тестирование классификатора
+    bayesResult = bayesCl.predict(feature_test)
+
+    # Оценка точности классификатора
+    bayesAccuracy = accuracy_score(bayesResult, label_test)
+    print(bayesAccuracy)
+
+    # Матрица ошибок
+    bayesConfMat = confusion_matrix(bayesResult, label_test)
+    print(bayesConfMat)
+
+    # ROC-кривая
+
 
 
 
