@@ -89,12 +89,13 @@ def secondTask():
     # Создание и сборка в один DataFrame
     pointDF1 = pd.DataFrame(pointList1X, columns=['X'])
     pointDF1['Y'] = pointList1Y
+    pointDF1['label'] = 'C1'
 
     pointDF2 = pd.DataFrame(pointList2X, columns=['X'])
     pointDF2['Y'] = pointList2Y
+    pointDF2['label'] = 'C2'
 
     pointDF = pointDF1.append(pointDF2)
-
 
 
     print(pointDF)
