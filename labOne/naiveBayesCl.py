@@ -1,3 +1,5 @@
+from math import sqrt
+import random
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
@@ -28,7 +30,7 @@ def firstTask(dataPath: str, dataType: str):
     Y = list()
     X = list()
     Ytr = list()
-    trainSizeArr = np.arange(0.01, 0.99, 0.01)
+    trainSizeArr = np.arange(0.05, 0.95, 0.01)
     for i in trainSizeArr:
         trainSize = i
         testSize = 1 - i
@@ -65,7 +67,46 @@ def firstTask(dataPath: str, dataType: str):
     plt.ylabel("Accuracy")
     plt.show()
 
-firstTask("data\\tic_tac_toe.txt", "txt")
+def secondTask():
+    # Замена наименований X1 = X, X2 = Y, -1 = 1, 1 = 2 (для удобства)
+    pointList1X = list()
+    pointList1Y = list()
+    pointList2X = list()
+    pointList2Y = list()
+
+    # Генерация точек
+    for i in range(10):
+        pointList1X.append(random.normalvariate(15, sqrt(4)))
+        pointList1Y.append(random.normalvariate(18, sqrt(4)))
+    for i in range(90):
+        pointList2X.append(random.normalvariate(18, sqrt(2)))
+        pointList2Y.append(random.normalvariate(18, sqrt(2)))
+
+    # Построение диаграммы (класс -1 зеленые точки, класс 1 красные точки)
+    plt.plot(pointList1X, pointList1Y, 'go', pointList2X, pointList2Y, 'ro')
+    plt.show()
+
+    # Создание и сборка в один DataFrame
+    pointDF1 = pd.DataFrame(pointList1X, columns=['X'])
+    pointDF1['Y'] = pointList1Y
+
+    pointDF2 = pd.DataFrame(pointList2X, columns=['X'])
+    pointDF2['Y'] = pointList2Y
+
+    pointDF = pointDF1.append(pointDF2)
+
+
+
+    print(pointDF)
+
+
+
+secondTask()
+
+#firstTask("data\\tic_tac_toe.txt", "txt")
+#firstTask("data\spam.csv", "csv")
+
+
 
 
 
