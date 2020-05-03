@@ -5,12 +5,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve
 import pandas as pd
-import numpy as np
-
 
 
 # Задание 1
-
 def firstTask(dataPath: str, dataType: str):
     # Чтение данных из файла в dataset
     if (dataType == "txt"):
@@ -67,6 +64,7 @@ def firstTask(dataPath: str, dataType: str):
     plt.ylabel("Accuracy")
     plt.show()
 
+# Задание 2
 def secondTask():
     # Замена наименований X1 = X, X2 = Y, -1 = 1, 1 = 2 (для удобства)
     pointList1X = list()
@@ -111,7 +109,8 @@ def secondTask():
 
     # Тестирование классификатора
     bayesResult = bayesCl.predict(feature_test)
-
+    bayesResult = pd.DataFrame(bayesResult)
+    print(bayesResult)
     # Оценка точности классификатора
     bayesAccuracy = accuracy_score(bayesResult, label_test)
     print(bayesAccuracy)
@@ -120,7 +119,17 @@ def secondTask():
     bayesConfMat = confusion_matrix(bayesResult, label_test)
     print(bayesConfMat)
 
-    # ROC-кривая
+    # Таблица ошибок
+    TP1 = bayesConfMat[0, 0]
+    FP1 = bayesConfMat[0, 1]
+    FN1 = bayesConfMat[1, 0]
+    TN1 = bayesConfMat[1, 1]
+
+    TP2 = bayesConfMat[1, 1]
+    FP2 = bayesConfMat[1, 0]
+    FN2 = bayesConfMat[0, 1]
+    TN2 = bayesConfMat[0, 0]
+
 
 
 
