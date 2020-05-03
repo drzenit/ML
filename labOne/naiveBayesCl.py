@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve, roc_auc_score, precision_recall_curve
 import pandas as pd
+import numpy as np
 
 
 # Задание 1
@@ -170,12 +171,11 @@ def secondTask():
 
 
 
-secondTask()
 
 #firstTask("data\\tic_tac_toe.txt", "txt")
-#firstTask("data\spam.csv", "csv")
+firstTask("data\spam.csv", "csv")
 
-
+#secondTask()
 
 
 
