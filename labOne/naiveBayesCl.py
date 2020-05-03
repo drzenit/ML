@@ -3,7 +3,7 @@ import random
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve
+from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve, roc_auc_score, precision_recall_curve
 import pandas as pd
 
 
@@ -109,8 +109,7 @@ def secondTask():
 
     # Тестирование классификатора
     bayesResult = bayesCl.predict(feature_test)
-    bayesResult = pd.DataFrame(bayesResult)
-    print(bayesResult)
+
     # Оценка точности классификатора
     bayesAccuracy = accuracy_score(bayesResult, label_test)
     print(bayesAccuracy)
@@ -130,6 +129,43 @@ def secondTask():
     FN2 = bayesConfMat[0, 1]
     TN2 = bayesConfMat[0, 0]
 
+    # Получение вероятностей классификации
+    bayesResultProba = bayesCl.predict_proba(feature_test)
+    bayesResultProba = pd.DataFrame(bayesResultProba)
+
+    proba1 = bayesResultProba[0]
+    proba2 = bayesResultProba[1]
+
+    # Замена на бинарные значения для удобства
+    label_test1 = pd.DataFrame(label_test)
+    label_test1 = label_test.replace({'C1': 1, 'C2': 0})
+
+    label_test2 = pd.DataFrame(label_test)
+    label_test2 = label_test.replace({'C1': 0, 'C2': 1})
+
+    # Построение ROC-кривой и получение AUC (площади под кривой)
+    fpr, tpr, thresholds = roc_curve(label_test1, proba1)
+    auc = roc_auc_score(label_test1, proba1)
+    print(auc)
+    plt.plot(fpr, tpr, 'g')
+    fpr, tpr, thresholds = roc_curve(label_test2, proba2)
+    auc = roc_auc_score(label_test2, proba2)
+    print(auc)
+    plt.plot(fpr, tpr, 'r')
+    plt.plot([0, 1], [0, 1], 'k--')
+    plt.xlabel("FPR")
+    plt.ylabel("TPR")
+    plt.show()
+
+    # Получение PR-кривой
+    precision, recall, thresholds = precision_recall_curve(label_test1, proba1)
+    plt.plot(recall, precision, 'g')
+    precision, recall, thresholds = precision_recall_curve(label_test2, proba2)
+    plt.plot(recall, precision, 'r')
+    plt.plot([0, 1], [0.5, 0.5], 'k--')
+    plt.xlabel("Recall")
+    plt.ylabel("Precision")
+    plt.show()
 
 
 
