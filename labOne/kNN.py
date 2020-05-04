@@ -35,7 +35,6 @@ def thirdTask(dataPath: str):
         # Оценка точности классификатора
         knnAccuracy = accuracy_score(knnResult, label_test)
         knnError = 1 - knnAccuracy
-        print(knnError)
 
         # Сбор параметров для графика
         kList.append(k)
@@ -46,6 +45,18 @@ def thirdTask(dataPath: str):
     plt.xlabel("K")
     plt.ylabel("Error")
     plt.show()
+
+
+
+    # Определение типа стекла
+    sample = {"RI": pd.Series([1.516]), "Na": pd.Series([11.7]), "Mg": pd.Series([1.01]), "Al": pd.Series([1.19]),
+                "Si": pd.Series([72.59]), "K": pd.Series([0.43]), "Ca": pd.Series([11.44]),
+                    "Ba": pd.Series([0.02]), "Fe": pd.Series([0.1])}
+    sample = pd.DataFrame(sample)
+    knnCl = KNeighborsClassifier()
+    knnCl.fit(feature_train, label_train)
+    sampleResult = knnCl.predict(sample)
+    print(sampleResult)
 
 
 thirdTask("data\glass.csv")
