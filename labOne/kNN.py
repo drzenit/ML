@@ -46,7 +46,28 @@ def thirdTask(dataPath: str):
     plt.ylabel("Error")
     plt.show()
 
+    # Влияние метрики расстояния
+    metricList = list()
+    accuracyList = list()
+    distanceMetric = ["euclidean", "manhattan", "chebyshev", "minkowski"]
+    for metric in distanceMetric:
+        # Создание и обучение экземпляра классификатора
+        knnCl = KNeighborsClassifier(metric=metric)
+        knnCl.fit(feature_train, label_train)
 
+        # Тестирование классификатора
+        knnResult = knnCl.predict(feature_test)
+
+        # Оценка точности классификатора
+        knnAccuracy = accuracy_score(knnResult, label_test)
+
+        # Сбор параметров для графика
+        metricList.append(metric)
+        accuracyList.append(knnAccuracy)
+    plt.plot(metricList, accuracyList, 'o')
+    plt.xlabel("Metric")
+    plt.ylabel("Accuracy")
+    plt.show()
 
     # Определение типа стекла
     sample = {"RI": pd.Series([1.516]), "Na": pd.Series([11.7]), "Mg": pd.Series([1.01]), "Al": pd.Series([1.19]),
