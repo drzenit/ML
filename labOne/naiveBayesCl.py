@@ -173,7 +173,7 @@ def secondTask():
 
 
 #firstTask("data\\tic_tac_toe.txt", "txt")
-firstTask("data\spam.csv", "csv")
+#firstTask("data\spam.csv", "csv")
 
 #secondTask()
 
