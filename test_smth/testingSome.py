@@ -53,3 +53,9 @@ plt.figure()
 clf = DecisionTreeClassifier().fit(iris.data, iris.target)
 plot_tree(clf, filled=True)
 plt.show()
+
+
+import pyaudio
+
+p = pyaudio.PyAudio()
+stream = p.open(format=pyaudio.paInt16, channels=1, rate = 44100, input=True, frames_per_buffer=2**11)

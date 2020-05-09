@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 
-def fourTask(dataPath: str):
+def fifthTask(dataPath: str):
     # Чтение данных из файла в dataset
     dataset = pd.read_csv(dataPath, sep=",")
 
@@ -21,22 +21,57 @@ def fourTask(dataPath: str):
     testSize = 1 - trainSize
     feature_train, feature_test, label_train, label_test = train_test_split(feature, label, train_size=trainSize, test_size=testSize)
 
-    # Обучение классификатора
+    # Влияние максимальной глубины
+    maxDepList = list()
+    accuracyList = list()
+    for maxDepth in range(1, 50):
+        maxDepList.append(maxDepth)
+        # Создание и обучение классификатора
+        treeCl = DecisionTreeClassifier(max_depth=maxDepth)
+        treeCl.fit(feature_train, label_train)
+
+        # Тестирование классификатора
+        treeResult = treeCl.predict(feature_test)
+
+        # Оценка точности классификатора
+        treeAccuracy = accuracy_score(treeResult, label_test)
+        accuracyList.append(treeAccuracy)
+
+    # Построение графика зависимости точности классификации от глубины дерева
+    plt.plot(maxDepList, accuracyList)
+    plt.xlabel("Max_Depth")
+    plt.ylabel("Accuracy")
+    plt.show()
+
+    # Влияние критерия расщепления
+    splitList = list()
+    accuracyList = list()
+    for split in('best', 'random'):
+        splitList.append(split)
+        # Создание и обучение классификатора
+        treeCl = DecisionTreeClassifier(splitter=split)
+        treeCl.fit(feature_train, label_train)
+
+        # Тестирование классификатора
+        treeResult = treeCl.predict(feature_test)
+
+        # Оценка точности классификатора
+        treeAccuracy = accuracy_score(treeResult, label_test)
+        accuracyList.append(treeAccuracy)
+
+    # Построение графика зависимости точности классификации от критерия расщепления
+    plt.plot(splitList, accuracyList, 'o')
+    plt.xlabel("Splitter")
+    plt.ylabel("Accuracy")
+    plt.show()
+
+    # Визуализация дерева решений
     treeCl = DecisionTreeClassifier()
     treeCl.fit(feature_train, label_train)
-
-    # Тестирование классификатора
-    treeResult = treeCl.predict(feature_test)
-
-    # Оценка точности классификатора
-    treeAccuracy = accuracy_score(treeResult, label_test)
-    print(treeAccuracy)
-
-
     plot_tree(treeCl, filled=True, fontsize=8, max_depth=3)
     plt.show()
 
 
-fourTask("data\glass.csv")
+fifthTask("data\glass.csv")
 
 
