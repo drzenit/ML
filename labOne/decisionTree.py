@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 
-def fifthTask(dataPath: str):
+def fifthTaskA(dataPath: str):
     # Чтение данных из файла в dataset
     dataset = pd.read_csv(dataPath, sep=",")
 
@@ -71,7 +71,41 @@ def fifthTask(dataPath: str):
     plot_tree(treeCl, filled=True, fontsize=8, max_depth=3)
     plt.show()
 
+def fifthTaskB(dataPath: str):
+    # Чтение данных из файла в dataset
+    dataset = pd.read_csv(dataPath, sep=",")
 
-fifthTask("data\glass.csv")
+    # Разделение на признаки и метки
+    feature = dataset.iloc[:, :-1]
+    label = dataset['yesno']
+    print(feature)
+    print(label)
+
+    # Деление данных на обучающие и тестовые
+    trainSize = 0.7
+    testSize = 1 - trainSize
+    feature_train, feature_test, label_train, label_test = train_test_split(feature, label, train_size=trainSize,
+                                                                            test_size=testSize)
+
+    # Создание и обучение классификатора
+    treeCl = DecisionTreeClassifier()
+    treeCl.fit(feature_train, label_train)
+
+    # Тестирование классификатора
+    treeResult = treeCl.predict(feature_test)
+
+    # Оценка точности классификатора
+    treeAccuracy = accuracy_score(treeResult, label_test)
+    print(treeAccuracy)
+
+    # Визуализация дерева решений
+    treeCl = DecisionTreeClassifier()
+    treeCl.fit(feature_train, label_train)
+    plot_tree(treeCl, filled=True, fontsize=8, max_depth=5)
+    plt.show()
+
+
+#fifthTaskA("data\glass.csv")
+fifthTaskB("data\spam7.csv")
 
 
