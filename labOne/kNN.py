@@ -6,11 +6,16 @@ import matplotlib.pyplot as plt
 
 
 def thirdTask(dataPath: str):
+    print("ЗАДАНИЕ_3")
     # Чтение данных из файла в dataset
     dataset = pd.read_csv(dataPath, sep=",")
 
     # Удаление столбца Id
     dataset.drop(['Id'], axis='columns', inplace=True)
+
+    # Просмотр dataset после удаление Id
+    print("Данные после удаления столбца ID:")
+    print(dataset)
 
     # Разделение на признаки и метки
     feature = dataset.iloc[:, :-1]
@@ -44,6 +49,7 @@ def thirdTask(dataPath: str):
     plt.plot(kList, errList)
     plt.xlabel("K")
     plt.ylabel("Error")
+    plt.title("ЗАДАНИЕ 3 - Ошибка классификации от кол-ва")
     plt.show()
 
     # Влияние метрики расстояния
@@ -67,6 +73,7 @@ def thirdTask(dataPath: str):
     plt.plot(metricList, accuracyList, 'o')
     plt.xlabel("Metric")
     plt.ylabel("Accuracy")
+    plt.title("ЗАДАНИЕ 3 - Точность от метрики")
     plt.show()
 
     # Определение типа стекла
@@ -77,7 +84,7 @@ def thirdTask(dataPath: str):
     knnCl = KNeighborsClassifier()
     knnCl.fit(feature_train, label_train)
     sampleResult = knnCl.predict(sample)
-    print(sampleResult)
+    print("Результат определения образца: ", sampleResult)
 
 
 thirdTask("data\glass.csv")
