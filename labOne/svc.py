@@ -33,6 +33,7 @@ def readFile(dataPath: str):
 
 
 def fourthTaskA(dataPath: str):
+    print("ЗАДАНИЕ_4.1")
     # Деление данных на обучающие и тестовые
     C = 1.0
     feature_train, label_train = readFile(dataPath)
@@ -52,11 +53,12 @@ def fourthTaskA(dataPath: str):
     ax[0, 1].set_title('Матрица ошибок на тестовых данных')
     plot_confusion_matrix(svc, feature_train, label_train, ax=ax[1, 1])
     ax[1, 1].set_title('Матрица ошибок на обучающих данных')
-    plt.suptitle('Лаб. 4(А)')
+    plt.suptitle("4.2")
     plt.show()
     print('Кол-во опорных векторов: ', svc.n_support_)
 
 def fourthTaskB(dataPath: str):
+    print("ЗАДАНИЕ_4.2")
     # Деление данных на обучающие и тестовые
     feature_train, label_train = readFile(dataPath)
     feature_test, label_test = readFile(dataPath)
@@ -82,6 +84,7 @@ def fourthTaskB(dataPath: str):
             break
 
 def fourthTaskC(dataPath: str):
+    print("ЗАДАНИЕ_4.3")
     # Деление данных на обучающие и тестовые
     feature_train, label_train = readFile(dataPath)
     feature_test, label_test = readFile(dataPath)
@@ -104,7 +107,7 @@ def fourthTaskC(dataPath: str):
         x += 1
 
     # Отрисовка
-    plt.suptitle('Лаб. 4(С)')
+    plt.suptitle("4.3")
     plt.show()
     x, y = 0, 0
     fig, ax = plt.subplots(3, 2, figsize=(10, 10))
@@ -124,12 +127,13 @@ def fourthTaskC(dataPath: str):
         if x % 3 == 0:
             y += 1
             x = 0
-    plt.suptitle('Лаб. 4(C)')
+    plt.suptitle("4.3")
     plt.show()
 
 
 def fourthTaskD(dataPath: str):
-    # Разделение на обучающую и тестовую
+    print("ЗАДАНИЕ_4.4")
+    # Деление данных на обучающие и тестовые
     feature_train, label_train = readFile(dataPath)
     feature_test, label_test = readFile(dataPath)
 
@@ -151,7 +155,7 @@ def fourthTaskD(dataPath: str):
         x += 1
 
     # Отрисовка
-    plt.suptitle('Лаб. 4(D)')
+    plt.suptitle("4.4")
     plt.show()
     x, y = 0, 0
     fig, ax = plt.subplots(3, 2, figsize=(10, 10))
@@ -171,12 +175,13 @@ def fourthTaskD(dataPath: str):
         if x % 3 == 0:
             y += 1
             x = 0
-    plt.suptitle('Лаб. 4(D)')
+    plt.suptitle("4.4")
     plt.show()
 
 
 def fourthTaskE(dataPath: str):
-    # Разделение на обучающую и тестовую
+    print("ЗАДАНИЕ_4.5")
+    # Деление данных на обучающие и тестовые
     feature_train, label_train = readFile(dataPath)
     feature_test, label_test = readFile(dataPath)
 
@@ -203,7 +208,7 @@ def fourthTaskE(dataPath: str):
         y += 1
 
     # Отрисовка
-    plt.suptitle('Лаб. 4(E)')
+    plt.suptitle("4.5")
     plt.show()
 
     # Визуализируем полиномиальное ядро со степенями 1-5 и gamma
@@ -223,12 +228,12 @@ def fourthTaskE(dataPath: str):
             x += 1
 
         # Отрисовка
-        plt.suptitle('Лаб. 4(E)')
+        plt.suptitle('4.5')
         plt.show()
 
     svc = SVC(kernel='rbf', gamma=1000)
     svc.fit(feature_train, label_train)
     visualize(feature_train, label_test, svc)
     plt.title('Демонстрация переобучения на гауссовом ядре с гаммой = 1000. \n Точность:' + "%.3f" %accuracy_score(label_test, svc.predict(feature_test)))
-    plt.suptitle('Лаб. 4(E)')
+    plt.suptitle("4.5")
     plt.show()

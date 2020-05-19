@@ -6,6 +6,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 def knnSystem(dataPathTrain: str, dataPathTest: str):
+    print("ЗАДАНИЕ_6")
     # Чтение данных из файла в dataset
     datasetTrain = pd.read_table(dataPathTrain)
     datasetTest = pd.read_table(dataPathTest)
@@ -58,6 +59,7 @@ def knnSystem(dataPathTrain: str, dataPathTest: str):
     plt.show()
 
 def decisionTree(dataPathTrain: str, dataPathTest: str):
+    print("ЗАДАНИЕ_6")
     # Чтение данных из файла в dataset
     datasetTrain = pd.read_table(dataPathTrain)
     datasetTest = pd.read_table(dataPathTest)
