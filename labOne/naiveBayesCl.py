@@ -10,6 +10,7 @@ import numpy as np
 
 # Задание 1
 def firstTask(dataPath: str, dataType: str):
+    print("ЗАДАНИЕ_1")
     # Чтение данных из файла в dataset
     if (dataType == "txt"):
         dataset = pd.read_csv(dataPath, sep=",", header=None)
@@ -56,17 +57,20 @@ def firstTask(dataPath: str, dataType: str):
         Ytr.append(bayesAccuracyTr)
 
     plt.plot(X, Y)
+    plt.title("ЗАДАНИЕ 1 %s" %dataPath)
     plt.xlabel("Train_Size")
     plt.ylabel("Accuracy")
     plt.show()
 
     plt.plot(X, Ytr)
+    plt.title("ЗАДАНИЕ 1 %s" %dataPath)
     plt.xlabel("Train_Size")
     plt.ylabel("Accuracy")
     plt.show()
 
 # Задание 2
 def secondTask():
+    print("ЗАДАНИЕ_2")
     # Замена наименований X1 = X, X2 = Y, -1 = 1, 1 = 2 (для удобства)
     pointList1X = list()
     pointList1Y = list()
@@ -83,6 +87,7 @@ def secondTask():
 
     # Построение диаграммы (класс -1 зеленые точки, класс 1 красные точки)
     plt.plot(pointList1X, pointList1Y, 'go', pointList2X, pointList2Y, 'ro')
+    plt.title("ЗАДАНИЕ 2 - Распределение точек")
     plt.show()
 
     # Создание и сборка в один DataFrame
@@ -117,6 +122,7 @@ def secondTask():
 
     # Матрица ошибок
     bayesConfMat = confusion_matrix(bayesResult, label_test)
+    print("Матрица ошибок:")
     print(bayesConfMat)
 
     # Таблица ошибок
@@ -147,15 +153,16 @@ def secondTask():
     # Построение ROC-кривой и получение AUC (площади под кривой)
     fpr, tpr, thresholds = roc_curve(label_test1, proba1)
     auc = roc_auc_score(label_test1, proba1)
-    print(auc)
+    print("Площадь AUC = ", auc)
     plt.plot(fpr, tpr, 'g')
     fpr, tpr, thresholds = roc_curve(label_test2, proba2)
     auc = roc_auc_score(label_test2, proba2)
-    print(auc)
+    print("Площадь AUC = ", auc)
     plt.plot(fpr, tpr, 'r')
     plt.plot([0, 1], [0, 1], 'k--')
     plt.xlabel("FPR")
     plt.ylabel("TPR")
+    plt.title("ЗАДАНИЕ 2 - ROC-кривая")
     plt.show()
 
     # Получение PR-кривой
@@ -166,6 +173,7 @@ def secondTask():
     plt.plot([0, 1], [0.5, 0.5], 'k--')
     plt.xlabel("Recall")
     plt.ylabel("Precision")
+    plt.title("ЗАДАНИЕ 2 - PR-кривая")
     plt.show()
 
 
@@ -175,7 +183,7 @@ def secondTask():
 #firstTask("data\\tic_tac_toe.txt", "txt")
 #firstTask("data\spam.csv", "csv")
 
-secondTask()
+#secondTask()
 
 
 
