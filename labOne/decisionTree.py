@@ -71,7 +71,7 @@ def fifthTaskA(dataPath: str):
     # Визуализация дерева решений
     treeCl = DecisionTreeClassifier()
     treeCl.fit(feature_train, label_train)
-    plot_tree(treeCl, filled=True, fontsize=8)
+    plot_tree(treeCl)
     plt.title("ЗАДАНИЕ 5.1 %s" %dataPath)
     plt.show()
 
@@ -162,8 +162,8 @@ def fifthTaskB(dataPath: str):
     ax[1, 1].set_xscale('log')
     ax[1, 1].set(xlabel='Кол-во признаков для разделении', ylabel='Точность',
                  title='Зависимость точности от кол-ва признаков для разделения')
-    plt.suptitle('Выбираем оптимальные параметры для дерева')
-    plt.suptitle("5.2")
+    #plt.suptitle('Выбираем оптимальные параметры для дерева')
+    #plt.suptitle("5.2")
     plt.show()
 
     # Вывод самого оптимального дерева и его точности
@@ -174,7 +174,7 @@ def fifthTaskB(dataPath: str):
     plot_tree(DTC)
     plt.title(
         'Оптимальное дерево. Точность = ' + DTCAcc.__str__() + '\nКритерий - ' + criter + '. Глубина - ' + maxDepth.__str__() + '.\nМин. кол-во образцов для расщепления - ' + minSplit.__str__())
-    plt.suptitle("5.2")
+    #plt.suptitle("5.2")
     plt.show()
 
 

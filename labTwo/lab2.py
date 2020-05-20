@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 
 
+# Первое задание без использования keras
 def firstTask(dataPath: str):
     # Конвертация в pandas.DataFrame
     def convertToDF(data):
@@ -15,6 +16,17 @@ def firstTask(dataPath: str):
     def sigmoidFunc(x):
         return (1 / (1 + np.exp(-x)))
 
+    # Гиперболический тангенс
+    def tanFunc(x):
+        return np.tanh(x)
+
+    # ReLu функция
+    def reluFunc(x):
+        if (0 > x.all()):
+            return 0
+        else:
+            return x
+
     # Чтение данных из файла в dataset
     dataset = pd.read_csv(dataPath, sep=",")
 
@@ -23,9 +35,6 @@ def firstTask(dataPath: str):
     label = dataset['class']
     # Замена -1 на 0 (требуется для обучения)
     label = label.replace({-1 : 0})
-
-    # Нормировка
-    #TODO: Нормировать
 
     # Деление данных на обучающие и тестовые
     trainSize = 0.9
@@ -41,42 +50,40 @@ def firstTask(dataPath: str):
     # Задание начальных весов случайным образом
     np.random.seed(25)
     weights = (2 * np.random.random((2, 1)) - 1)
-    print(weights)
 
-    # Обучение - Метод обратного распространения
-    #a = feature_train
-    #outputDatas = sigmoidFunc(np.dot(a, weights))
-    #err = label_train - outputDatas
-    for i in range(20000):
-        #print(weights)
-        # Получение выходных значений
-        inputLayer = feature_train
-        outputData = sigmoidFunc(np.dot(inputLayer, weights))
+    for func in (sigmoidFunc, tanFunc, reluFunc):
+        # Обучение - Метод обратного распространения
+        for i in range(1000):  # Приразличных i нейрон может обучиться и переобучиться
+            # Получение выходных значений
+            inputLayer = feature_train
+            outputData = func(np.dot(inputLayer, weights))
 
-        # Корректировка весов, исходя из ошибки
-        err = label_train - outputData
-        #print(err)
-        adjustment = np.dot(inputLayer.T, (err * (outputData * (1 - outputData))))
-        weights += adjustment
+            # Корректировка весов, исходя из ошибки
+            err = label_train - outputData
+            adjustment = np.dot(inputLayer.T, (err * (outputData * (1 - outputData))))
+            weights += adjustment
 
-    # Тестирование нейрона
-    inputLayer = feature_test
-    outputData = sigmoidFunc(np.dot(inputLayer, weights))
+        # Тестирование нейрона
+        inputLayer = feature_test
+        outputData = func(np.dot(inputLayer, weights))
 
-    print(weights)
-    print(outputData)
-    resultData = list()
-    for i in outputData:
-        if (i >= 0.5):
-            resultData.append(1)
-        else:
-            resultData.append(0)
+        resultData = list()
+        for i in outputData:
+            if (i >= 0.5):
+                resultData.append(1)
+            else:
+                resultData.append(0)
 
-    print(resultData)
-    accuracyTest = accuracy_score(label_test, resultData)
-    confMatrix = confusion_matrix(label_test, resultData)
-    print(confMatrix)
-    print(accuracyTest)
+        accuracyTest = accuracy_score(label_test, resultData)
+        confMatrix = confusion_matrix(label_test, resultData)
+        print("Нейрон на примере %s" %dataPath)
+        print("Функция активации -", func.__name__)
+        print("Матрица ошибок: \n", confMatrix)
+        print("Точность: ", accuracyTest)
+
+
+
 
 
 firstTask("data\\nn_0.csv")
+firstTask("data\\nn_1.csv")

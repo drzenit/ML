@@ -32,12 +32,12 @@ def readFile(dataPath: str):
     return feature, label
 
 
-def fourthTaskA(dataPath: str):
+def fourthTaskA(dataPathTest: str, dataPathTrain: str):
     print("ЗАДАНИЕ_4.1")
     # Деление данных на обучающие и тестовые
     C = 1.0
-    feature_train, label_train = readFile(dataPath)
-    feature_test, label_test = readFile(dataPath)
+    feature_train, label_train = readFile(dataPathTrain)
+    feature_test, label_test = readFile(dataPathTest)
 
     # Создание и обучение экземпляра классификатора
     svc = SVC(kernel='linear', C=C)
@@ -57,11 +57,11 @@ def fourthTaskA(dataPath: str):
     plt.show()
     print('Кол-во опорных векторов: ', svc.n_support_)
 
-def fourthTaskB(dataPath: str):
+def fourthTaskB(dataPathTest: str, dataPathTrain: str):
     print("ЗАДАНИЕ_4.2")
     # Деление данных на обучающие и тестовые
-    feature_train, label_train = readFile(dataPath)
-    feature_test, label_test = readFile(dataPath)
+    feature_train, label_train = readFile(dataPathTrain)
+    feature_test, label_test = readFile(dataPathTest)
 
     # Подборка штрафного параметра для нулевой ошибки (точность = 1) для обучающей выборки
     for i in range(1, 1000, 1):
@@ -83,11 +83,11 @@ def fourthTaskB(dataPath: str):
             print('Точность для тестовой выборки = ', accuracy_score(label_test, svc.predict(feature_test)))
             break
 
-def fourthTaskC(dataPath: str):
+def fourthTaskC(dataPathTest: str, dataPathTrain: str):
     print("ЗАДАНИЕ_4.3")
     # Деление данных на обучающие и тестовые
-    feature_train, label_train = readFile(dataPath)
-    feature_test, label_test = readFile(dataPath)
+    feature_train, label_train = readFile(dataPathTrain)
+    feature_test, label_test = readFile(dataPathTest)
 
     # Ядра
     kernels = ('linear', 'sigmoid', 'rbf')
@@ -107,7 +107,7 @@ def fourthTaskC(dataPath: str):
         x += 1
 
     # Отрисовка
-    plt.suptitle("4.3")
+    #plt.suptitle("4.3")
     plt.show()
     x, y = 0, 0
     fig, ax = plt.subplots(3, 2, figsize=(10, 10))
@@ -117,7 +117,7 @@ def fourthTaskC(dataPath: str):
         svc = SVC(kernel='poly', degree=i)
         svc.fit(feature_train, label_train)
         visualize(feature_train, label_test, svc, ax[x, y])
-        str = 'SVC классификатор с полиноминальным ядром и степенью ' + i.__str__() + '\n' + accuracy_score(label_test,
+        str = 'SVC с полиноминальным ядром и степенью ' + i.__str__() + '\n' + accuracy_score(label_test,
                                                                                                             svc.predict(
                                                                                                                 feature_test)).__str__()
         ax[x, y].set_xticks([])
@@ -127,15 +127,15 @@ def fourthTaskC(dataPath: str):
         if x % 3 == 0:
             y += 1
             x = 0
-    plt.suptitle("4.3")
+    #plt.suptitle("4.3")
     plt.show()
 
 
-def fourthTaskD(dataPath: str):
+def fourthTaskD(dataPathTest: str, dataPathTrain: str):
     print("ЗАДАНИЕ_4.4")
     # Деление данных на обучающие и тестовые
-    feature_train, label_train = readFile(dataPath)
-    feature_test, label_test = readFile(dataPath)
+    feature_train, label_train = readFile(dataPathTrain)
+    feature_test, label_test = readFile(dataPathTest)
 
     # Ядра
     kernels = ('sigmoid', 'rbf')
@@ -147,7 +147,7 @@ def fourthTaskD(dataPath: str):
         svc = SVC(kernel=i)
         svc.fit(feature_train, label_train)
         visualize(feature_train, label_test, svc, ax[x])
-        str = 'SVC классификатор с ' + i + ' ядром \n Точность = ' + accuracy_score(label_test,
+        str = 'SVC с ' + i + ' ядром \n Точность = ' + accuracy_score(label_test,
                                                                                     svc.predict(feature_test)).__str__()
         ax[x].set_xticks([])
         ax[x].set_yticks([])
@@ -155,7 +155,7 @@ def fourthTaskD(dataPath: str):
         x += 1
 
     # Отрисовка
-    plt.suptitle("4.4")
+    #plt.suptitle("4.4")
     plt.show()
     x, y = 0, 0
     fig, ax = plt.subplots(3, 2, figsize=(10, 10))
@@ -165,7 +165,7 @@ def fourthTaskD(dataPath: str):
         svc = SVC(kernel='poly', degree=i)
         svc.fit(feature_train, label_train)
         visualize(feature_train, label_test, svc, ax[x, y])
-        str = 'SVC классификатор с полиноминальным ядром и степенью ' + i.__str__() + '\n' + accuracy_score(label_test,
+        str = 'SVC с полиноминальным ядром и степенью ' + i.__str__() + '\n' + accuracy_score(label_test,
                                                                                                             svc.predict(
                                                                                                                 feature_test)).__str__()
         ax[x, y].set_xticks([])
@@ -175,15 +175,15 @@ def fourthTaskD(dataPath: str):
         if x % 3 == 0:
             y += 1
             x = 0
-    plt.suptitle("4.4")
+    #plt.suptitle("4.4")
     plt.show()
 
 
-def fourthTaskE(dataPath: str):
+def fourthTaskE(dataPathTest: str, dataPathTrain: str):
     print("ЗАДАНИЕ_4.5")
     # Деление данных на обучающие и тестовые
-    feature_train, label_train = readFile(dataPath)
-    feature_test, label_test = readFile(dataPath)
+    feature_train, label_train = readFile(dataPathTrain)
+    feature_test, label_test = readFile(dataPathTest)
 
     # Ядра
     kernels = ('sigmoid', 'rbf')
@@ -208,7 +208,7 @@ def fourthTaskE(dataPath: str):
         y += 1
 
     # Отрисовка
-    plt.suptitle("4.5")
+    #plt.suptitle("4.5")
     plt.show()
 
     # Визуализируем полиномиальное ядро со степенями 1-5 и gamma
@@ -228,12 +228,14 @@ def fourthTaskE(dataPath: str):
             x += 1
 
         # Отрисовка
-        plt.suptitle('4.5')
+        #plt.suptitle('4.5')
         plt.show()
 
     svc = SVC(kernel='rbf', gamma=1000)
     svc.fit(feature_train, label_train)
     visualize(feature_train, label_test, svc)
     plt.title('Демонстрация переобучения на гауссовом ядре с гаммой = 1000. \n Точность:' + "%.3f" %accuracy_score(label_test, svc.predict(feature_test)))
-    plt.suptitle("4.5")
+    #plt.suptitle("4.5")
     plt.show()
+
+fourthTaskE("data\svmdata_b.txt", "data\svmdata_b_test.txt")

@@ -57,13 +57,13 @@ def firstTask(dataPath: str, dataType: str):
         Ytr.append(bayesAccuracyTr)
 
     plt.plot(X, Y)
-    plt.title("ЗАДАНИЕ 1 %s" %dataPath)
+    plt.title("ЗАДАНИЕ 1 Тестовая %s" %dataPath)
     plt.xlabel("Train_Size")
     plt.ylabel("Accuracy")
     plt.show()
 
     plt.plot(X, Ytr)
-    plt.title("ЗАДАНИЕ 1 %s" %dataPath)
+    plt.title("ЗАДАНИЕ 1 Обучающая %s" %dataPath)
     plt.xlabel("Train_Size")
     plt.ylabel("Accuracy")
     plt.show()
@@ -180,10 +180,10 @@ def secondTask():
 
 
 
-#firstTask("data\\tic_tac_toe.txt", "txt")
-#firstTask("data\spam.csv", "csv")
+firstTask("data\\tic_tac_toe.txt", "txt")
+firstTask("data\spam.csv", "csv")
 
-#secondTask()
+secondTask()
 
 
 

@@ -28,10 +28,11 @@ def knnSystem(dataPathTrain: str, dataPathTest: str):
 
     # Оценка точности классификатора
     knnAccuracy = accuracy_score(knnResult, label_test)
-    print(knnAccuracy)
+    print("Accuracy = ", knnAccuracy)
 
     # Матрица ошибок
     knnConfMat = confusion_matrix(knnResult, label_test)
+    print("Матрица ошибок KNN:")
     print(knnConfMat)
 
     # Получение вероятностей классификации
@@ -43,7 +44,7 @@ def knnSystem(dataPathTrain: str, dataPathTest: str):
     # Построение ROC-кривой и получение AUC (площади под кривой)
     fpr, tpr, thresholds = roc_curve(label_test, proba)
     auc = roc_auc_score(label_test, proba)
-    print(auc)
+    print("AUC = ", auc)
     plt.plot(fpr, tpr, 'g')
     plt.plot([0, 1], [0, 1], 'k--')
     plt.xlabel("FPR")
@@ -81,10 +82,11 @@ def decisionTree(dataPathTrain: str, dataPathTest: str):
 
     # Оценка точности классификатора
     treeAccuracy = accuracy_score(treeResult, label_test)
-    print(treeAccuracy)
+    print("Accuracy = ", treeAccuracy)
 
     # Матрица ошибок
     treeConfMat = confusion_matrix(treeResult, label_test)
+    print("Матрица ошибок:")
     print(treeConfMat)
 
     # Получение вероятностей классификации
@@ -96,7 +98,7 @@ def decisionTree(dataPathTrain: str, dataPathTest: str):
     # Построение ROC-кривой и получение AUC (площади под кривой)
     fpr, tpr, thresholds = roc_curve(label_test, proba)
     auc = roc_auc_score(label_test, proba)
-    print(auc)
+    print("AUC = ", auc)
     plt.plot(fpr, tpr, 'g')
     plt.plot([0, 1], [0, 1], 'k--')
     plt.xlabel("FPR")
