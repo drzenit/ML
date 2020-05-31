@@ -194,33 +194,23 @@ def secondTask(dataPath: str):
 
     # Создаем нейрон из keras
     neuron = Sequential()
-    neuron.add(Dense(1, activation="tanh"))
-    neuron.compile(loss='binary_crossentropy', optimizer="adamax", metrics="accuracy")
+    neuron.add(Flatten(input_shape=(2,)))
+    neuron.add(Dense(3, activation="relu"))
+    neuron.add(Dense(2, activation="softmax"))
+    neuron.compile(optimizer="nadam",loss="sparse_categorical_crossentropy", metrics=["accuracy"])
 
     # Обучаем нейрон
     neuron.fit(feature_train, label_train, epochs=EPOCHS2, use_multiprocessing=True, verbose=1)
 
     # Тестирование нейрона
-    neuronResult = neuron.predict(feature_test)
-
-    # Приведение к классу 0 или 1
-    resultData = list()
-    for res in neuronResult:
-        if (res >= 0.5):
-            resultData.append(1)
-        elif (res < 0.5):
-            resultData.append(0)
-
-    # Оценка
-    accuracyTest = accuracy_score(label_test, resultData)
-    confMatrix = confusion_matrix(label_test, resultData)
+    loss, accuracy = neuron.evaluate(feature_test, label_test)
+    print("Accuracy = ", accuracy)
 
     # Вывод результатов
     print("Нейрон на примере %s" % dataPath)
-    print("Функция активации - ", "sigmoid")
-    print("Оптимизатор - ", "adagrad")
-    print("Матрица ошибок: \n", confMatrix)
-    print("Точность: ", accuracyTest)
+    print("Функции активации - ", "relu, softmax")
+    print("Оптимизатор - ", "nadam")
+    print("Точность: ", accuracy)
 
 def thirdTask():
     # Задаем пазмерность
@@ -265,10 +255,10 @@ def thirdTask():
 #firstTaskKeras("data\\nn_1.csv")
 
 
-#EPOCHS2 = 60
+EPOCHS2 = 500
 
-#print("******************************************SECOND_TASK******************************************")
-#secondTask("data\\nn_1.csv")
+print("******************************************SECOND_TASK******************************************")
+secondTask("data\\nn_1.csv")
 
 #EPOCHS3 = 21
 
